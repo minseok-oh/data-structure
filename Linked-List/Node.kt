@@ -1,10 +1,19 @@
-data class Node<T>(var data: T, var next: Node<T>? = null) {
+data class Node<T>(var value: T, var next: Node<T>? = null) {
     override fun toString(): String {
-        if (next != null) {
-            return "$data -> ${next.toString()}"
+        return if (next != null) {
+            "$value -> ${next.toString()}"
         } else {
-            return "$data"
+            "$value"
         }
     }
 
+    fun printInReverse() {
+        this.next?.printInReverse()
+
+        if (this.next != null) {
+            print(" -> ")
+        }
+
+        print(this.value.toString())
+    }
 }
