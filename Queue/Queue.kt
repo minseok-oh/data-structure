@@ -8,7 +8,7 @@ interface QueueInterface<T> {
     fun peek(): T?
 
     fun reverse() {
-        val aux = Stack<T>()
+        var aux = Stack<T>()
         var next = this.dequeue()
         while (next != null) {
             aux.push(next)
@@ -115,4 +115,23 @@ class RingBuffer<Element> (val size: Int) {
         ret += " ]"
         return ret
     }
+}
+
+abstract class AbstractPriorityQueue<T> : QueueInterface<T> {
+    abstract val heap: AbstractHeap<T>
+
+    override fun enqueue(element: T): Boolean {
+        heap.insert(element)
+        return true
+    }
+    override fun dequeue() = heap.remove()
+
+    override val count: Int
+        get() = heap.count
+
+    override fun peek() = heap.peek()
+}
+
+class MaxPriorityQueue<T: Comparable<T>> : AbstractPriorityQueue<T>() {
+    override val heap: MaxHeap<T> = MaxHeap<T>()
 }
