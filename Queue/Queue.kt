@@ -135,3 +135,8 @@ abstract class AbstractPriorityQueue<T> : QueueInterface<T> {
 class MaxPriorityQueue<T: Comparable<T>> : AbstractPriorityQueue<T>() {
     override val heap: MaxHeap<T> = MaxHeap<T>()
 }
+class PriorityQueue<T>(
+    private val comparator: Comparator<T>
+) : AbstractPriorityQueue<T>() {
+    override val heap: Heap<T> = Heap(comparator)
+}
